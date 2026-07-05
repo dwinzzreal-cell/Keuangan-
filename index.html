@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Tracker</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ============================================ -->
+        <!-- HEADER                                      -->
+        <!-- ============================================ -->
+        <header class="header">
+            <h1 class="title">Financial Tracker</h1>
+            <p class="subtitle">Catat pemasukan & pengeluaran</p>
+        </header>
+
+        <!-- ============================================ -->
+        <!-- SALDO SECTION                               -->
+        <!-- ============================================ -->
+        <section class="balance-section">
+            <div class="balance-card">
+                <span class="balance-label">Saldo Saat Ini</span>
+                <span class="balance-amount" id="totalBalance">Rp 0</span>
+            </div>
+            <div class="balance-stats">
+                <div class="stat-item stat-income">
+                    <span class="stat-label">Pemasukan</span>
+                    <span class="stat-value" id="totalIncome">Rp 0</span>
+                </div>
+                <div class="stat-item stat-expense">
+                    <span class="stat-label">Pengeluaran</span>
+                    <span class="stat-value" id="totalExpense">Rp 0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- FORM TAMBAH TRANSAKSI                       -->
+        <!-- ============================================ -->
+        <section class="form-section">
+            <h2 class="section-title">Tambah Transaksi</h2>
+            <form id="transactionForm" class="transaction-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="label">Jenis</label>
+                        <select id="transactionType" class="input" required>
+                            <option value="income">Pemasukan</option>
+                            <option value="expense">Pengeluaran</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Jumlah (Rp)</label>
+                        <input type="number" id="transactionAmount" class="input" placeholder="0" min="1" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="label">Kategori</label>
+                        <select id="transactionCategory" class="input" required>
+                            <optgroup label="Pemasukan">
+                                <option value="gaji">Gaji</option>
+                                <option value="bonus">Bonus</option>
+                                <option value="investasi">Investasi</option>
+                                <option value="lainnya-income">Lainnya</option>
+                            </optgroup>
+                            <optgroup label="Pengeluaran">
+                                <option value="makanan">Makanan</option>
+                                <option value="transportasi">Transportasi</option>
+                                <option value="tagihan">Tagihan</option>
+                                <option value="belanja">Belanja</option>
+                                <option value="hiburan">Hiburan</option>
+                                <option value="kesehatan">Kesehatan</option>
+                                <option value="pendidikan">Pendidikan</option>
+                                <option value="lainnya-expense">Lainnya</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Tanggal</label>
+                        <input type="date" id="transactionDate" class="input" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="label">Deskripsi (opsional)</label>
+                    <input type="text" id="transactionDesc" class="input" placeholder="Catatan tambahan..." />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Tambah Transaksi</button>
+            </form>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- FILTER & SEARCH                             -->
+        <!-- ============================================ -->
+        <section class="filter-section">
+            <div class="filter-row">
+                <div class="form-group">
+                    <label class="label">Filter Jenis</label>
+                    <select id="filterType" class="input filter-input">
+                        <option value="all">Semua</option>
+                        <option value="income">Pemasukan</option>
+                        <option value="expense">Pengeluaran</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="label">Filter Kategori</label>
+                    <select id="filterCategory" class="input filter-input">
+                        <option value="all">Semua</option>
+                        <option value="gaji">Gaji</option>
+                        <option value="bonus">Bonus</option>
+                        <option value="investasi">Investasi</option>
+                        <option value="lainnya-income">Lainnya (Income)</option>
+                        <option value="makanan">Makanan</option>
+                        <option value="transportasi">Transportasi</option>
+                        <option value="tagihan">Tagihan</option>
+                        <option value="belanja">Belanja</option>
+                        <option value="hiburan">Hiburan</option>
+                        <option value="kesehatan">Kesehatan</option>
+                        <option value="pendidikan">Pendidikan</option>
+                        <option value="lainnya-expense">Lainnya (Expense)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="label">Cari</label>
+                    <input type="text" id="searchInput" class="input filter-input" placeholder="Cari deskripsi..." />
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button id="clearFilterBtn" class="btn btn-outline btn-sm">Reset Filter</button>
+                <span class="transaction-count" id="transactionCount">0 transaksi</span>
+            </div>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- DAFTAR TRANSAKSI                            -->
+        <!-- ============================================ -->
+        <section class="list-section">
+            <h2 class="section-title">Riwayat Transaksi</h2>
+            <div id="transactionList" class="transaction-list">
+                <div class="empty-state">
+                    <span class="empty-icon">+</span>
+                    <p class="empty-text">Belum ada transaksi</p>
+                    <p class="empty-sub">Tambahkan transaksi pertama Anda</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================ -->
+        <!-- ACTION BUTTONS                              -->
+        <!-- ============================================ -->
+        <div class="action-bar">
+            <button id="exportBtn" class="btn btn-outline btn-sm">Export CSV</button>
+            <button id="clearAllBtn" class="btn btn-outline-danger btn-sm">Hapus Semua</button>
+        </div>
+
+    </div>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT                                  -->
+    <!-- ============================================ -->
+    <script src="js/script.js"></script>
+
+</body>
+  </html>
